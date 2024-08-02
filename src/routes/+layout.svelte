@@ -1,5 +1,4 @@
 <script>
-	import '$lib/scss/index.scss';
 	import '../app.css';
 	import Header from '$lib/Header.svelte';
 </script>
