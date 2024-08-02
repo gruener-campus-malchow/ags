@@ -1,0 +1,23 @@
+import {error} from "@sveltejs/kit";
+import {create_ag} from "$lib/server/db";
+import {transporter} from "$lib/server/mail";
+import {BASE_PATH, MAIL_FROM} from "$env/static/private";
+
+export const actions = {
+    default: async ({ cookies, request, url }) => {
+        const data = await request.formData();
+        const name = data.get('name'), organizer_email = data.get('organizer_email');
+        if (!name || !organizer_email) throw error(400)
+        const key = create_ag(name, organizer_email);
+
+        transporter.sendMail({
+            from: MAIL_FROM,
+            to: organizer_email,
+            subject: 'testmail',
+            text: `${url.origin}${BASE_PATH}register/${key}`,
+        }, (err, info) => {
+            if (err) console.error(err)
+            else console.log(info)
+        });
+    }
+};

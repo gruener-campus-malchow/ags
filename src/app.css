@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    /* wtf, tailwind? */
+    button, [role="button"] {
+        cursor: default;
+    }
+
+    @font-face {
+        font-family: 'Ubuntu';
+        font-style: normal;
+        font-weight: normal;
+        src: url('https://gcm.schule/fonts/ubuntu-r.woff2') format('woff2');
+    }
+    @font-face {
+        font-family: 'Ubuntu';
+        font-style: normal;
+        font-weight: bold;
+        src: url('https://gcm.schule/fonts/ubuntu-b.woff2') format('woff2');
+    }
+
+    ::file-selector-button {
+        @apply btn border-none font-sans mr-4;
+    }
+}
+
+@layer utilities {
+    .aspect-2 {
+        aspect-ratio: 2;
+    }
+}
+
+@layer components {
+    .list {
+        display: grid;
+        grid-template-columns: auto auto;
+        gap: 0 1em;
+        line-height: 1;
+    }
+    span.list {
+        display: inline-grid;
+    }
+
+    .btn {
+        @apply py-2 px-4 rounded-lg bg-gray-200 hover:bg-gray-300 text-black font-bold leading-none select-none;
+    }
+    .btn-primary {
+        @apply bg-primary hover:bg-black text-white;
+    }
+
+    .h1 {
+        @apply text-3xl font-bold my-4;
+    }
+    .h2 {
+        @apply text-2xl font-bold my-4;
+    }
+}

@@ -1,0 +1,28 @@
+{
+  "licht-und-ton": {
+    "name": "Licht und Ton",
+    "description": "Das geplante Gesetz über die Selbstbestimmung in Bezug auf den Geschlechtseintrag (SBGG) (nichtamtlich auch Selbstbestimmungsgesetz) soll es transgeschlechtlichen, intergeschlechtlichen und nichtbinären Personen in Deutschland erleichtern, ihren Geschlechtseintrag und ihren Vornamen ändern zu lassen.[1] Seit Mai 2023 lag ein Referentenentwurf des Gesetzes vor, der nach Detailänderungen am 23. August als Regierungsentwurf beschlossen[2][3] und nach weiteren Änderungen am 12. April 2024 vom Bundestag angenommen wurde. Mit Inkrafttreten des Selbstbestimmungsgesetzes (geplant zum 1. November 2024) tritt das Transsexuellengesetz außer Kraft,[4] das für die Änderung des Geschlechtseintrags und Namens ein aufwendiges Gutachterverfahren und die gerichtliche Anerkennung der Änderungen vorschreibt.[5] Medizinische Maßnahmen sollen durch das SBGG nicht geregelt werden.",
+    "image": "https://gcm.schule/example.jpg",
+    "slots":  15,
+    "waiting_list": 23
+  },
+  "ringen": {
+    "name": "Ringen",
+    "description": "Wer anderen eine Bratwurst brät, hat ein Bratwurstbratgerät.",
+    "image": "https://gcm.schule/anwesenheit/assets/head-iwh.webp",
+    "slots":  25,
+    "waiting_list": 0
+  },
+  "tautologie": {
+    "name": "Tautologieclub",
+    "description": "",
+    "waiting_list": 7
+  },
+  "cis": {
+    "name": "Campus Information System",
+    "description": "Ziel einer der ersten Phasen sollte sein, dass Ihr Projekt als KlassendiLISTramm modelliert ist.",
+    "image": "https://gcm.schule/logos/cis-wordmark.svg",
+    "slots": 5,
+    "waiting_list": 3
+  }
+}
