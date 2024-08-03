@@ -27,7 +27,7 @@
                 <span>Beschreibung</span>
                 <textarea class="border-2 rounded px-2 py-1" name="description">{data.description}</textarea>
                 <span>Bild</span>
-                <input class="w-80" type="file" accept="image/png, image/jpeg" name="image" bind:files={selected_image}>
+                <input class="w-80" type="file" accept="image/png, image/jpeg, image/svg+xml" name="image" bind:files={selected_image}>
                 {#if image_url}
                     <span></span>
                     <img class="w-80 h-40 bg-gray-200 rounded-lg object-cover text-gray-600"

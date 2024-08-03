@@ -24,7 +24,7 @@ export const actions = {
         const image = data.get('image');
         if (image) {
             // todo: resize image
-            if (!image.type.match(/^image\/(png|jpe?g)$/i)) return;
+            if (!image.type.match(/^image\/(png|jpe?g|svg\+xml)$/i)) return;
             const buffer = Buffer.from(await image.arrayBuffer());
             db.prepare('insert into `ag_images` (`id`, `mime_type`, `size`, `data`) values (?, ?, ?, ?) on conflict(`id`) do update set `mime_type` = excluded.`mime_type`, `last_modified` = excluded.`last_modified`, `size` = excluded.`size`, `data` = excluded.`data` where `id` = excluded.`id`')
                 .run(ag_id, image.type, image.size, buffer);
