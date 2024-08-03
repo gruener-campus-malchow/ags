@@ -14,12 +14,14 @@ export const actions = {
             from: MAIL_FROM,
             to: organizer_email,
             subject: 'AG erfolgreich registriert',
-            text: `Hallo,\r\n` +
+            text: `Hallo,\r\n\r\n` +
                 `Ihre AG »${name}« wurde erfolgreich registriert.\r\n` +
                 `Unter folgendem Link können Sie zusätzliche Informationen ergänzen:\r\n` +
                 `${url.origin}${BASE_PATH}register/${key}\r\n\r\n` +
                 `Mit freundlichen Grüßen\r\n` +
-                `Das AG-Team des Grünen Campus Malchow`,
+                `Das AG-Team des Grünen Campus Malchow\r\n\r\n` +
+                `--\r\n` +
+                `Diese E-Mail wurde automatisch erstellt und ist ohne Unterschrift gültig.`,
         }, (err, info) => {
             if (err) console.error(err)
             else console.log(info)
