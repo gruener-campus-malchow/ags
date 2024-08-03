@@ -13,7 +13,12 @@ export function get_ag(id) {
 }
 
 export function create_ag(name, organizer_email) {
-    let id_base = name.toLowerCase().replace(/[^a-z0-9]+/ig, '-');
+    let id_base = name.toLowerCase()
+        .replace(/ä/ig, 'ae')
+        .replace(/ö/ig, 'oe')
+        .replace(/ü/ig, 'ue')
+        .replace(/ß/ig, 'ss')
+        .replace(/[^a-z0-9]+/ig, '-');
     let id = id_base;
     for (let i = 2; get_ag(id); i ++) id = `${id_base}-${i}`;
 
