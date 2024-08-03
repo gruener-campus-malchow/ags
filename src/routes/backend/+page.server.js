@@ -13,8 +13,13 @@ export const actions = {
         transporter.sendMail({
             from: MAIL_FROM,
             to: organizer_email,
-            subject: 'testmail',
-            text: `${url.origin}${BASE_PATH}register/${key}`,
+            subject: 'AG erfolgreich registriert',
+            text: `Hallo,\r\n` +
+                `Ihre AG »${name}« wurde erfolgreich registriert.\r\n` +
+                `Unter folgendem Link können Sie zusätzliche Informationen ergänzen:\r\n` +
+                `${url.origin}${BASE_PATH}register/${key}\r\n\r\n` +
+                `Mit freundlichen Grüßen\r\n` +
+                `Das AG-Team des Grünen Campus Malchow`,
         }, (err, info) => {
             if (err) console.error(err)
             else console.log(info)
