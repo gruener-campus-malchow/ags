@@ -3,8 +3,7 @@ create table if not exists `ags` (
 	`name` text not null,
 	`description` text,
 	`slots` int,
-	`waiting_list` int default 0,
-	`organizer_email` text not null
+	`waiting_list` int default 0
 );
 
 create table if not exists `registration_keys` (
