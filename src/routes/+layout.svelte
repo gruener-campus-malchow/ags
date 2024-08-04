@@ -4,7 +4,7 @@
 </script>
 
 <Header />
-<main class="px-4 max-w-5xl mx-auto">
+<main class="px-4 pb-4 max-w-5xl mx-auto">
 	<slot/>
 </main>
 
