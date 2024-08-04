@@ -1,5 +1,5 @@
-import {error} from "@sveltejs/kit";
-import {db} from '$lib/server/db';
+import { error } from '@sveltejs/kit';
+import { db } from '$lib/server/db';
 
 export const GET = async ({ params, setHeaders }) => {
     if (!params.id) throw error(404);

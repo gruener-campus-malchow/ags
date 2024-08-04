@@ -1,8 +1,8 @@
-import {db} from '$lib/server/db/index.js';
-import {error} from '@sveltejs/kit';
+import { db } from '$lib/server/db';
+import { error } from '@sveltejs/kit';
 
 export function load({ params }) {
-    const ag = db.prepare('select `ags`.`id` as `id`, `name`, `description`, `slots`, `last_modified` from `ags` left join `ag_images` on `ags`.`id` = `ag_images`.`id`, `registration_keys` where `ags`.`id` = `ag_id` and `key` = ?')
+    const ag = db.prepare('select `ags`.* , `last_modified` from `ags` left join `ag_images` on `ags`.`id` = `ag_images`.`id`, `registration_keys` where `ags`.`id` = `ag_id` and `key` = ?')
         .get(params.key);
     return {
         key: params.key,
@@ -12,7 +12,7 @@ export function load({ params }) {
 }
 
 export const actions = {
-    default: async ({ cookies, request }) => {
+    default: async ({ request }) => {
         const data = await request.formData();
         const key = data.get('key'), description = data.get('description'), slots = data.get('slots');
         const ag_id = get_ag_from_key(key);
@@ -26,7 +26,7 @@ export const actions = {
             // todo: resize image
             if (!image.type.match(/^image\/(png|jpe?g|svg\+xml)$/i)) return;
             const buffer = Buffer.from(await image.arrayBuffer());
-            db.prepare('insert into `ag_images` (`id`, `mime_type`, `size`, `data`) values (?, ?, ?, ?) on conflict(`id`) do update set `mime_type` = excluded.`mime_type`, `last_modified` = excluded.`last_modified`, `size` = excluded.`size`, `data` = excluded.`data` where `id` = excluded.`id`')
+            db.prepare('replace into `ag_images` (`id`, `mime_type`, `size`, `data`) values (?, ?, ?, ?)')
                 .run(ag_id, image.type, image.size, buffer);
         }
     }
