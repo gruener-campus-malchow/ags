@@ -1,6 +1,11 @@
 <script>
+	import {createEventDispatcher} from "svelte";
+
 	export let image_url, name, description;
 	export let slots, waiting_list;
+	export let subscribed = false, loading = false;
+
+	const dispatch = createEventDispatcher();
 </script>
 
 <li class="w-80 max-sm:w-auto bg-gray-100 rounded-2xl overflow-hidden">
@@ -17,7 +22,9 @@
 				{#if slots}<span>Plätze:</span><strong>{slots}</strong>{/if}
 				<span>Anmeldungen:</span><strong>{waiting_list}</strong>
 			</div>
-			<button class="btn btn-primary">anmelden</button>
+			<button class="btn" class:btn-primary={!subscribed} class:loading={loading} on:click={e => dispatch('signup', e)}>
+				{subscribed ? 'angemeldet' : 'anmelden'}
+			</button>
 		</div>
 	</div>
 </li>

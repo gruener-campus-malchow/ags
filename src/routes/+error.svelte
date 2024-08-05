@@ -3,11 +3,11 @@
 </script>
 
 <pre>
- /!\
+/!\
 {#if $page.status === 404}
 Seite nicht gefunden
 {:else}
-{$page.status}
+HTTP {$page.status}
 {$page.error.message}
 {/if}
 </pre>

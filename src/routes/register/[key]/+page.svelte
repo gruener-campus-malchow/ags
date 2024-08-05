@@ -1,18 +1,27 @@
 <script>
+    import { enhance } from '$app/forms';
+    import Tick from '$lib/icons/Tick.svelte';
+
     export let data;
 
     let selected_image;
     $: image_url = selected_image ? URL.createObjectURL(selected_image[0]) : data.image_url;
+    let state = 'none';
 
-    function update(e) {
-        // ...
+    function handle_submit() {
+        state = 'submitting';
+        return async ({ update }) => {
+            await update({ reset: false });
+            state = 'submitted';
+            setTimeout(() => state = 'none', 5000);
+        };
     }
 </script>
 
 <h1 class="h1">AG-Registrierung</h1>
 <p class="my-4">Hier können Sie zusätzliche Informationen zu Ihrer AG ergänzen.</p>
 
-<form on:submit={update} method="post" enctype="multipart/form-data">
+<form method="post" enctype="multipart/form-data" use:enhance={handle_submit}>
     <input type="hidden" name="key" value={data.key}>
 
     <div class="flex flex-wrap gap-4">
@@ -48,7 +57,12 @@
         </div>
     </div>
 
-    <div class="my-4">
+    <div class="my-4 flex gap-2 items-center">
         <button class="btn btn-primary" type="submit">speichern</button>
+        {#if state === 'submitting'}
+            <span class="loading text-gray-600"></span>
+        {:else if state === 'submitted'}
+            <span class="text-gray-600"><Tick /></span>
+        {/if}
     </div>
 </form>

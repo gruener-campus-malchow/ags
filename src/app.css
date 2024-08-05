@@ -59,4 +59,24 @@
     .h2 {
         @apply text-2xl font-bold my-4;
     }
+
+    .loading-placeholder {
+        @apply m-4 text-xl font-bold text-primary;
+    }
+
+    .loading-placeholder::before, .loading::before {
+        @apply inline-block box-border align-middle;
+        content: '';
+        width: 1em;
+        height: 1em;
+        margin-right: .5em;
+        border: .25em solid;
+        border-color: currentColor currentColor transparent transparent;
+        border-radius: 50%;
+        animation: 1s spinner linear infinite;
+    }
+    @keyframes spinner {
+        from { transform: none }
+        to { transform: rotate(360deg) }
+    }
 }

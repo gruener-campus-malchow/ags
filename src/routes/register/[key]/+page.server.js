@@ -4,6 +4,7 @@ import { error } from '@sveltejs/kit';
 export function load({ params }) {
     const ag = db.prepare('select `ags`.* , `last_modified` from `ags` left join `ag_images` on `ags`.`id` = `ag_images`.`id`, `registration_keys` where `ags`.`id` = `ag_id` and `key` = ?')
         .get(params.key);
+    if (!ag) throw error(404);
     return {
         key: params.key,
         image_url: ag.last_modified ? `/thumbs/${ag.id}?v=${ag.last_modified}` : null,
