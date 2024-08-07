@@ -8,8 +8,8 @@
 	<slot/>
 </main>
 
-<a href="https://gcm.schule/cis/about">
-	<img class="absolute top-12 right-0 h-8 m-2"
+<a href="https://gcm.schule/cis/about" class="absolute top-12 right-0 m-2">
+	<img class="h-8"
 		 src="https://gcm.schule/logos/cis-wordmark.svg"
 		 alt="Campus Information System">
 </a>

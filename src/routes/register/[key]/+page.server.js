@@ -15,12 +15,12 @@ export function load({ params }) {
 export const actions = {
     default: async ({ request }) => {
         const data = await request.formData();
-        const key = data.get('key'), description = data.get('description'), slots = data.get('slots');
+        const key = data.get('key'), name = data.get('name'), description = data.get('description'), slots = data.get('slots');
         const ag_id = get_ag_from_key(key);
-        if (!ag_id || !slots) throw error(400);
+        if (!ag_id || !name || !slots) throw error(400, 'Ein erforderliches Feld wurde nicht ausgefüllt.');
 
-        db.prepare('update `ags` set `description` = ?, slots = ? where `id` = ?')
-            .run(description, slots, ag_id);
+        db.prepare('update `ags` set `description` = ?, `name` = ?, `slots` = ? where `id` = ?')
+            .run(description, name, slots, ag_id);
 
         const image = data.get('image');
         if (image) {

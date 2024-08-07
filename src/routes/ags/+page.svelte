@@ -1,9 +1,10 @@
 <script>
     import { enhance } from '$app/forms';
+    import Tick from "$lib/icons/Tick.svelte";
 
     export let data;
 
-    function handle_subscribe({ formData }) {
+    function handle_apply({ formData }) {
         data.ags.find(a => a.id === formData.get('id'))
             .loading = true;
         data.ags = data.ags;
@@ -11,7 +12,7 @@
         return async ({ result }) => {
             const result_data = result.data.ag;
             const ag = data.ags.find(a => a.id === result_data.id);
-            ag.subscribed = result_data.subscribed;
+            ag.applied = result_data.applied;
             ag.loading = false;
             data.ags = data.ags;
         };
@@ -30,20 +31,29 @@
                 <div class="w-full aspect-2 bg-gray-200"></div>
             {/if}
 
-            <form action={ ag.subscribed ? '?/unsubscribe' : '?/subscribe' } method="post"
-                  use:enhance={handle_subscribe}
+            <form action={ ag.applied ? '?/revoke' : '?/apply' } method="post"
+                  use:enhance={handle_apply}
                   class="p-4 h-64 box-content flex flex-col">
                 <input type="hidden" name="id" value={ag.id}>
-                <h2 class="text-2xl font-bold">{ag.name}</h2>
+                <h2 class="text-2xl font-bold line-clamp-3" title={ag.name}>{ag.name}</h2>
                 <p class="flex-grow mt-2 mb-4 leading-tight overflow-auto whitespace-pre-line">{ag.description || ''}</p>
                 <div class="flex items-end justify-between gap-4">
-                    <div class="list">
+                    <div class="list gap-x-2">
                         {#if ag.slots}<span>Plätze:</span><strong>{ag.slots}</strong>{/if}
-                        <span>Anmeldungen:</span><strong>{ag.waiting_list}</strong>
+                        <span>Bewerbungen:</span><strong>{ag.applications}</strong>
                     </div>
-                    <button class="btn" class:btn-primary={!ag.subscribed} class:loading={ag.loading} type="submit">
-                        {ag.subscribed ? 'angemeldet' : 'anmelden'}
-                    </button>
+
+                    <div class="flex items-center">
+                        <!--{#if ag.loading}
+                            <span class="loading text-gray-600"></span>
+                        {:else if ag.applied}
+                            <span class="text-gray-600"><Tick /></span>
+                        {/if}-->
+
+                        <button class="btn" class:btn-primary={!ag.applied} class:loading={ag.loading} type="submit">
+                            {ag.applied ? 'abmelden' : 'bewerben'}
+                        </button>
+                    </div>
                 </div>
             </form>
         </li>

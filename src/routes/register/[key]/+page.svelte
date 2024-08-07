@@ -28,17 +28,16 @@
         <div class="bg-gray-100 rounded-2xl p-4">
             <h2 class="h2 mt-0">Allgemeine Informationen</h2>
             <div class="list form-list gap-y-2">
-                <span>Name</span>
-                <input type="text"
-                       class="border-2 rounded px-2 py-1 text-gray-600"
-                       name="name"
-                       value={data.name} disabled>
-                <span>Beschreibung</span>
-                <textarea class="border-2 rounded px-2 py-1" name="description">{data.description}</textarea>
-                <span>Bild</span>
-                <input class="w-80" type="file" accept="image/png, image/jpeg, image/svg+xml" name="image" bind:files={selected_image}>
+                <label for="ag_name">Name</label>
+                <input id="ag_name" type="text" maxlength="64" class="input invalid:border-red-600"
+                       name="name" value={data.name} required>
+                <label for="ag_description">Beschreibung</label>
+                <textarea id="ag_description" class="input" name="description">{data.description}</textarea>
+                <label for="ag_image">Bild</label>
+                <input id="ag_image" class="w-80" type="file" name="image" bind:files={selected_image}
+                       accept="image/png, image/jpeg, image/svg+xml">
                 {#if image_url}
-                    <span></span>
+                    <div></div>
                     <img class="w-80 h-40 bg-gray-200 rounded-lg object-cover text-gray-600"
                          src={image_url}
                          alt="Vorschau">
@@ -49,11 +48,16 @@
         <div class="bg-gray-100 rounded-2xl p-4">
             <h2 class="h2 mt-0">Verteilung</h2>
             <div class="list form-list gap-y-2">
-                <span>Anzahl Teilnehmer:innen</span>
-                <input type="number" class="border-2 rounded px-2 py-1 text-gray-600" name="slots" value={data.slots}
-                       required>
+                <label for="ag_slots">Anzahl Teilnehmer:innen</label>
+                <input id="ag_slots" type="number" class="input w-32 invalid:border-red-600"
+                       min="1" max="99" name="slots" value={data.slots} required>
+                <label for="ag_min_grade">Klassenstufe <span class="float-end">von</span></label>
+                <input id="ag_min_grade" type="number" class="input w-32 invalid:border-red-600"
+                       min="1" max={data.max_grade || 13} name="min_grade" bind:value={data.min_grade}>
+                <label for="ag_max_grade"><span class="float-end">bis</span></label>
+                <input id="ag_max_grade" type="number" class="input w-32 invalid:border-red-600"
+                       min={data.min_grade || 1} max="13" name="max_grade" bind:value={data.max_grade}>
             </div>
-            <mark>Hier könnten noch zusätzliche Optionen rein (z.B. Geschlecht)</mark>
         </div>
     </div>
 

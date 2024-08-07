@@ -42,7 +42,7 @@
     span.list {
         display: inline-grid;
     }
-    .form-list span {
+    .form-list label, .form-list .label {
         @apply py-1.5;
     }
 
@@ -58,6 +58,10 @@
     }
     .h2 {
         @apply text-2xl font-bold my-4;
+    }
+
+    .input {
+        @apply border-2 rounded px-2 py-1 disabled:text-gray-600;
     }
 
     .loading-placeholder {
@@ -78,5 +82,12 @@
     @keyframes spinner {
         from { transform: none }
         to { transform: rotate(360deg) }
+    }
+    .btn.loading {
+        @apply relative bg-gray-200 text-gray-400;
+    }
+    .btn.loading::before {
+        @apply absolute text-gray-600 left-1/2;
+        translate: -50%;
     }
 }

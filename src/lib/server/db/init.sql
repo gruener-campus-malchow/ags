@@ -3,7 +3,8 @@ create table if not exists `ags` (
 	`name` text not null,
 	`description` text,
 	`slots` int,
-	`waiting_list` int default 0
+	`min_grade` int,
+	`max_grade` int
 );
 
 create table if not exists `registration_keys` (
@@ -19,4 +20,22 @@ create table if not exists `ag_images` (
     `size` integer not null,
     `data` blob not null,
     foreign key(`id`) references `ags`(`id`)
+);
+
+
+create table if not exists `students` (
+    `id` integer primary key,
+    `first_name` text not null,
+    `last_name` text not null,
+    `class` text not null, -- ahh
+    `email` text not null,
+    `pin` integer
+);
+
+create table if not exists `applications` (
+    `student_id` integer not null,
+    `ag_id` text not null,
+    `accepted` boolean default FALSE,
+    foreign key(`student_id`) references `students`(`id`),
+    foreign key(`ag_id`) references `ags`(`id`)
 );
