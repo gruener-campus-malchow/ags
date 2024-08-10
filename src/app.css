@@ -24,6 +24,13 @@
     ::file-selector-button {
         @apply btn border-none font-sans mr-4;
     }
+
+    @media (prefers-color-scheme: dark) {
+        :root {
+            color-scheme: dark;
+            @apply bg-neutral-900 text-neutral-100;
+        }
+    }
 }
 
 @layer utilities {
@@ -47,7 +54,7 @@
     }
 
     .btn {
-        @apply py-2 px-4 rounded-lg bg-gray-200 hover:bg-gray-300 text-black font-bold leading-none select-none cursor-default;
+        @apply py-2 px-4 rounded-lg bg-gray-200 hover:bg-gray-300 text-black dark:bg-neutral-700 dark:hover:bg-neutral-600 dark:text-neutral-100 font-bold leading-none select-none cursor-default;
     }
     .btn-primary {
         @apply bg-green-600 hover:bg-green-700 text-white;
@@ -61,7 +68,7 @@
     }
 
     .input {
-        @apply border-2 rounded px-2 py-1 disabled:text-gray-600;
+        @apply border-2 dark:border-neutral-400 rounded px-2 py-1 disabled:text-gray-600;
     }
 
     .loading-placeholder {
@@ -84,10 +91,10 @@
         to { transform: rotate(360deg) }
     }
     .btn.loading {
-        @apply relative bg-gray-200 text-gray-400;
+        @apply relative bg-gray-200 text-gray-400 dark:bg-neutral-700 dark:text-neutral-500;
     }
     .btn.loading::before {
-        @apply absolute text-gray-600 left-1/2;
+        @apply absolute text-gray-600 dark:text-neutral-200 left-1/2;
         translate: -50%;
     }
 }

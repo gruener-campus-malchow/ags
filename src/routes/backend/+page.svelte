@@ -5,7 +5,7 @@
 <h1 class="h1">AG-Verwaltung</h1>
 
 <div class="flex flex-wrap gap-4">
-    <form class="bg-gray-100 rounded-2xl p-4" action="?/create_ag" method="post" use:enhance>
+    <form class="bg-gray-100 dark:bg-neutral-800 rounded-2xl p-4" action="?/create_ag" method="post" use:enhance>
         <h2 class="h2 mt-0">Neue AG anlegen</h2>
         <div class="list form-list gap-y-2">
             <label for="ag_name">AG-Name</label>

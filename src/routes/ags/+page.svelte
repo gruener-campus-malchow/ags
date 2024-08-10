@@ -23,11 +23,11 @@
 
 <ul class="flex flex-wrap gap-4">
     {#each data.ags as ag}
-        <li class="w-80 max-sm:w-auto bg-gray-100 rounded-2xl overflow-hidden">
+        <li class="w-80 max-sm:w-auto bg-gray-100 dark:bg-neutral-800 rounded-2xl overflow-hidden">
             {#if ag.image_url}
-                <img class="w-full aspect-2 bg-gray-200 object-cover" src={ag.image_url} alt={ag.name}>
+                <img class="w-full aspect-2 bg-gray-200 dark:bg-neutral-700 object-cover" src={ag.image_url} alt={ag.name}>
             {:else}
-                <div class="w-full aspect-2 bg-gray-200"></div>
+                <div class="w-full aspect-2 bg-gray-200 dark:bg-neutral-700"></div>
             {/if}
 
             <form action={ ag.applied ? '?/revoke' : '?/apply' } method="post"
