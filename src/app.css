@@ -47,10 +47,10 @@
     }
 
     .btn {
-        @apply py-2 px-4 rounded-lg bg-gray-200 hover:bg-gray-300 text-black font-bold leading-none select-none;
+        @apply py-2 px-4 rounded-lg bg-gray-200 hover:bg-gray-300 text-black font-bold leading-none select-none cursor-default;
     }
     .btn-primary {
-        @apply bg-primary hover:bg-black text-white;
+        @apply bg-green-600 hover:bg-green-700 text-white;
     }
 
     .h1 {

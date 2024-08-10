@@ -7,11 +7,6 @@ db.pragma('journal_mode = WAL'); // https://github.com/WiseLibs/better-sqlite3/b
 
 db.exec(fs.readFileSync(SQL_INIT_PATH, 'utf8'));
 
-export function get_ag(id) {
-    const stmt = db.prepare('select * from `ags` where `id` = ?');
-    return stmt.get(id);
-}
-
 export function create_ag(name, organizer_email) {
     let id_base = name.toLowerCase()
         .replace(/ä/ig, 'ae')
