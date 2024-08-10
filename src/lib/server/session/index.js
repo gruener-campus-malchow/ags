@@ -11,5 +11,5 @@ export function start_session(cookies) {
 }
 
 export function get_session(cookies) {
-    return session[cookies.get(COOKIE_NAME)];
+    return session[cookies.get(COOKIE_NAME)] || null;
 }
