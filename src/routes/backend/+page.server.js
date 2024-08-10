@@ -4,7 +4,7 @@ import { transporter } from '$lib/server/mail';
 import { BASE_PATH, MAIL_FROM } from '$env/static/private';
 
 export const actions = {
-    default: async ({ request, url }) => {
+    create_ag: async ({ request, url }) => {
         const data = await request.formData();
         const name = data.get('name'), organizer_email = data.get('organizer_email');
         if (!name || !organizer_email) throw error(400)
@@ -12,7 +12,7 @@ export const actions = {
 
         transporter.sendMail({
             from: MAIL_FROM,
-            to: organizer_email,
+            to: [organizer_email],
             subject: 'AG erfolgreich registriert',
             text: `Hallo,\r\n\r\n` +
                 `Ihre AG »${name}« wurde erfolgreich registriert.\r\n` +

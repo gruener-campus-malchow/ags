@@ -1,7 +1,5 @@
 <script>
     import { enhance } from '$app/forms';
-
-    export let data;
 </script>
 
 <h1 class="h1">AG-Verwaltung</h1>

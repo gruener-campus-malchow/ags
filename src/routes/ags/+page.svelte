@@ -1,6 +1,5 @@
 <script>
     import { enhance } from '$app/forms';
-    import Tick from "$lib/icons/Tick.svelte";
 
     export let data;
 
