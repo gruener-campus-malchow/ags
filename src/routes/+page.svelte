@@ -6,4 +6,4 @@
     <a href="/befreiung" class="btn btn-primary">Ich habe eine AG-Befreiung.</a>
 </div>
 
-<a href="/backend" class="text-primary underline">backend</a>
+<a href="/backend" class="text-green-600 underline">backend</a>

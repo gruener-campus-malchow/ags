@@ -65,7 +65,7 @@
     }
 
     .loading-placeholder {
-        @apply m-4 text-xl font-bold text-primary;
+        @apply m-4 text-xl font-bold text-green-600;
     }
 
     .loading-placeholder::before, .loading::before {
