@@ -68,7 +68,7 @@
     }
 
     .input {
-        @apply border-2 dark:border-neutral-400 rounded px-2 py-1 disabled:text-gray-600;
+        @apply border-2 dark:border-neutral-600 dark:bg-neutral-900 rounded px-2 py-1 disabled:text-gray-600;
     }
 
     .loading-placeholder {

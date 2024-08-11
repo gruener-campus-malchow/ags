@@ -35,7 +35,8 @@ create table if not exists `students` (
 create table if not exists `applications` (
     `student_id` integer not null,
     `ag_id` text not null,
-    `accepted` boolean default FALSE,
+    `priority` int not null default 0,
+    `accepted` boolean not null default FALSE,
     foreign key(`student_id`) references `students`(`id`),
     foreign key(`ag_id`) references `ags`(`id`)
 );
