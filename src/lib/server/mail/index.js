@@ -1,12 +1,12 @@
-import {createTransport} from "nodemailer";
-import {SMTP_HOST, SMTP_PASS, SMTP_PORT, SMTP_USER} from "$env/static/private";
+import { createTransport } from "nodemailer";
+import { env } from "$env/dynamic/private";
 
 export const transporter = createTransport({
-    host: SMTP_HOST,
-    port: SMTP_PORT,
+    host: env.SMTP_HOST,
+    port: env.SMTP_PORT,
     secure: false,
     auth: {
-        user: SMTP_USER,
-        pass: SMTP_PASS,
+        user: env.SMTP_USER,
+        pass: env.SMTP_PASS,
     },
 });

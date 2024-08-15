@@ -1,7 +1,7 @@
 import { error } from '@sveltejs/kit';
 import { create_ag } from '$lib/server/db';
 import { transporter } from '$lib/server/mail';
-import { BASE_PATH, MAIL_FROM } from '$env/static/private';
+import { env } from '$env/dynamic/private';
 
 export const actions = {
     create_ag: async ({ request, url }) => {
@@ -11,13 +11,13 @@ export const actions = {
         const key = create_ag(name, organizer_email);
 
         transporter.sendMail({
-            from: MAIL_FROM,
+            from: env.MAIL_FROM,
             to: [organizer_email],
             subject: 'AG erfolgreich registriert',
             text: `Hallo,\r\n\r\n` +
                 `Ihre AG »${name}« wurde erfolgreich registriert.\r\n` +
                 `Unter folgendem Link können Sie zusätzliche Informationen ergänzen:\r\n` +
-                `${url.origin}${BASE_PATH}register/${key}\r\n\r\n` +
+                `${url.origin}${env.BASE_PATH}register/${key}\r\n\r\n` +
                 `Mit freundlichen Grüßen\r\n` +
                 `Das AG-Team des Grünen Campus Malchow\r\n\r\n` +
                 `--\r\n` +
