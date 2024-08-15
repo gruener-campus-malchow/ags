@@ -21,6 +21,7 @@
 	"type": "module",
 	"dependencies": {
 		"better-sqlite3": "^11.1.2",
+		"csv": "^6.3.10",
 		"nodemailer": "^6.9.14"
 	}
 }
