@@ -4,7 +4,7 @@ import { error } from '@sveltejs/kit';
 export function load({ params }) {
     const ag = db.prepare('select `ags`.* , `last_modified` from `ags` left join `ag_images` on `ags`.`id` = `ag_images`.`id`, `registration_keys` where `ags`.`id` = `ag_id` and `key` = ?')
         .get(params.key);
-    if (!ag) throw error(404);
+    if (!ag) error(404);
     return {
         key: params.key,
         image_url: ag.last_modified ? `/thumbs/${ag.id}?v=${ag.last_modified}` : null,
@@ -17,7 +17,7 @@ export const actions = {
         const data = await request.formData();
         const key = data.get('key'), name = data.get('name'), description = data.get('description'), slots = data.get('slots');
         const ag_id = get_ag_from_key(key);
-        if (!ag_id || !name || !slots) throw error(400, 'Ein erforderliches Feld wurde nicht ausgefüllt.');
+        if (!ag_id || !name || !slots) error(400, 'Ein erforderliches Feld wurde nicht ausgefüllt.');
 
         db.prepare('update `ags` set `description` = ?, `name` = ?, `slots` = ? where `id` = ?')
             .run(description, name, slots, ag_id);

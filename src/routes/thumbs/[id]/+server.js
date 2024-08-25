@@ -2,10 +2,10 @@ import { error } from '@sveltejs/kit';
 import { db } from '$lib/server/db';
 
 export const GET = async ({ params, setHeaders }) => {
-    if (!params.id) throw error(404);
+    if (!params.id) error(404);
     const image = db.prepare('select * from `ag_images` where `id` = ?')
         .get(params.id);
-    if (!image) throw error(404);
+    if (!image) error(404);
 
     setHeaders({
         'Content-Type': image.mime_type,

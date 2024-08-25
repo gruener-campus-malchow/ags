@@ -11,6 +11,7 @@
         return async ({ result }) => {
             const result_data = result.data.ag;
             const ag = data.ags.find(a => a.id === result_data.id);
+            ag.applications = result_data.applications;
             ag.applied = result_data.applied;
             ag.loading = false;
             data.ags = data.ags;

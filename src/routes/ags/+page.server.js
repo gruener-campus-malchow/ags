@@ -1,41 +1,70 @@
+import { error, redirect } from '@sveltejs/kit';
 import { db } from '$lib/server/db';
-import { error } from '@sveltejs/kit';
+import { get_session } from '$lib/server/session';
 
-export function load() {
-    const ags = db.prepare('select `ags`.*, `mime_type` from `ags` left join `ag_images` on `ags`.`id` = `ag_images`.`id`').all();
+export function load({ cookies }) {
+    const session = get_session(cookies);
+    if (!session?.student_id) redirect(307, '/auth');
+
+    const ags = db.prepare('select `ags`.*, `mime_type`, `applications`, `applied` from `ags`' +
+        // ag images:
+        ' left join `ag_images` on `ags`.`id` = `ag_images`.`id`' +
+        // number of applications per ag:
+        ' left join (select `ag_id`, count(*) as `applications` from `applications` group by `ag_id`) on `ags`.`id` = `ag_id`' +
+        // has `session.student_id` applied to ag?
+        ' left join (select `ag_id` as `ag_id2`, count(*) as `applied` from `applications` where `student_id` = ? group by `ag_id`) on `ags`.`id` = `ag_id2`').all(session.student_id);
+
     ags.forEach(ag => {
         if (ag.mime_type) ag.image_url = `/thumbs/${ag.id}`;
-        ag.applied = false;
-        ag.applications = 0;
+        ag.applied = !!ag.applied;
+        ag.applications = ag.applications || 0;
     });
     return { ags };
 }
 
 export const actions = {
-    apply: async ({ request }) => {
+    apply: async ({ request, cookies }) => {
         const data = await request.formData();
-        const id = data.get('id');
-        if (!id) throw error(400, 'Bad Request');
-        //db.prepare('')
+        const ag_id = data.get('id');
+        if (!ag_id) error(400, 'Bad Request');
+
+        const session = get_session(cookies);
+        if (!session?.student_id) error(403);
+        db.prepare('insert into `applications` (`student_id`, `ag_id`) values (?, ?)')
+            .run(session.student_id, ag_id);
+        // get total number of applications:
+        const { applications } = db.prepare('select count(*) as `applications` from `applications` where `ag_id` = ?')
+            .get(ag_id);
+
         await new Promise((resolve) => setTimeout(resolve, 500)) // artificial delay
         return {
             ag: {
-                id,
-                applied: true
+                id: ag_id,
+                applied: true,
+                applications
             }
         };
     },
 
-    revoke: async ({ request }) => {
+    revoke: async ({ request, cookies }) => {
         const data = await request.formData();
-        const id = data.get('id');
-        if (!id) throw error(400, 'Bad Request');
-        //db.prepare('')
+        const ag_id = data.get('id');
+        if (!ag_id) error(400, 'Bad Request');
+
+        const session = get_session(cookies);
+        if (!session?.student_id) error(403);
+        db.prepare('delete from `applications` where `student_id` = ? and `ag_id` = ?')
+            .run(session.student_id, ag_id);
+        // get total number of applications:
+        const { applications } = db.prepare('select count(*) as `applications` from `applications` where `ag_id` = ?')
+            .get(ag_id);
+
         await new Promise((resolve) => setTimeout(resolve, 500)) // artificial delay
         return {
             ag: {
-                id,
-                applied: false
+                id: ag_id,
+                applied: false,
+                applications
             }
         };
     },

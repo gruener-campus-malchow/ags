@@ -29,7 +29,7 @@ create table if not exists `students` (
     `last_name` text not null,
     `class` text not null, -- ahh
     `email` text not null,
-    `pin` integer
+    `pin` integer unique
 );
 
 create table if not exists `applications` (

@@ -7,7 +7,7 @@ export const actions = {
     create_ag: async ({ request, url }) => {
         const data = await request.formData();
         const name = data.get('name'), organizer_email = data.get('organizer_email');
-        if (!name || !organizer_email) throw error(400)
+        if (!name || !organizer_email) error(400)
         const key = create_ag(name, organizer_email);
 
         transporter.sendMail({
