@@ -3,6 +3,9 @@ import { parse } from 'csv/sync';
 import { error } from '@sveltejs/kit';
 
 export function load() {
+    /*const ags = db.prepare('select `id` from `ags`').all().map(a => a.id)
+    for (let i = 0; i < 1000; i ++) db.prepare('insert into applications(ag_id, student_id) values (?,?)')
+        .run(ags[Math.floor(Math.random()*ags.length)], Math.floor(Math.random()*1000))*/
     const students = db.prepare('select * from `students`').all();
     return { students };
 }
