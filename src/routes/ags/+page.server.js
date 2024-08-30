@@ -6,6 +6,9 @@ export function load({ cookies }) {
     const session = get_session(cookies);
     if (!session?.student_id) redirect(307, '/auth');
 
+    const student = db.prepare('select * from `students` where `id` = ?')
+        .get(session.student_id);
+
     const ags = db.prepare('select `ags`.*, `mime_type`, `applications`, `applied` from `ags`' +
         // ag images:
         ' left join `ag_images` on `ags`.`id` = `ag_images`.`id`' +
@@ -19,7 +22,7 @@ export function load({ cookies }) {
         ag.applied = !!ag.applied;
         ag.applications = ag.applications || 0;
     });
-    return { ags };
+    return { student, ags };
 }
 
 export const actions = {

@@ -18,9 +18,10 @@ export const actions = {
         const key = data.get('key'), name = data.get('name'), description = data.get('description'), slots = data.get('slots');
         const ag_id = get_ag_from_key(key);
         if (!ag_id || !name || !slots) error(400, 'Ein erforderliches Feld wurde nicht ausgefüllt.');
+        const min_grade = data.get('min_grade') || null, max_grade = data.get('max_grade') || null;
 
-        db.prepare('update `ags` set `description` = ?, `name` = ?, `slots` = ? where `id` = ?')
-            .run(description, name, slots, ag_id);
+            db.prepare('update `ags` set `description` = ?, `name` = ?, `slots` = ?, `min_grade` = ?, `max_grade` = ? where `id` = ?')
+            .run(description, name, slots, min_grade, max_grade, ag_id);
 
         const image = data.get('image');
         if (image) {

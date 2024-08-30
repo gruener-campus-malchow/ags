@@ -3,6 +3,10 @@
 
     export let data;
 
+    let student_grade = parseInt(data.student.class)
+    $: filtered_ags = data.ags.filter(ag =>
+        student_grade >= (ag.min_grade || 0) && student_grade <=(ag.max_grade || 13))
+
     function handle_apply({ formData }) {
         data.ags.find(a => a.id === formData.get('id'))
             .loading = true;
@@ -23,7 +27,7 @@
 <!--p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p-->
 
 <ul class="flex flex-wrap gap-4">
-    {#each data.ags as ag}
+    {#each filtered_ags as ag}
         <li class="w-80 max-sm:w-auto max-sm:flex-grow bg-gray-100 dark:bg-neutral-800 rounded-2xl overflow-hidden">
             {#if ag.image_url}
                 <img class="w-full aspect-2 bg-gray-200 dark:bg-neutral-700 object-cover" src={ag.image_url} alt={ag.name}>
