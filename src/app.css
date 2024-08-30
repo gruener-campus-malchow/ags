@@ -37,6 +37,10 @@
     .aspect-2 {
         aspect-ratio: 2;
     }
+
+    .max-w-128 {
+        max-width: 32rem/* 512px */;
+    }
 }
 
 @layer components {
@@ -54,7 +58,7 @@
     }
 
     .btn {
-        @apply py-2 px-4 rounded-lg bg-gray-200 hover:bg-gray-300 text-black dark:bg-neutral-700 dark:hover:bg-neutral-600 dark:text-neutral-100 font-bold leading-none truncate select-none cursor-default;
+        @apply py-2 px-4 rounded-lg bg-gray-200 hover:bg-gray-300 text-black dark:bg-neutral-700 dark:hover:bg-neutral-600 dark:text-neutral-100 font-bold leading-none select-none cursor-default;
     }
     .btn-primary {
         @apply bg-green-600 hover:bg-green-700 text-white;
