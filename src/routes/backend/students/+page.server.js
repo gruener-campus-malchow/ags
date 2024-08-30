@@ -17,8 +17,7 @@ export const actions = {
         if (!file || file.type !== 'text/csv') error(400);
 
         const students = parse(await file.text())
-        // todo: generate unique, secure pins
-        const generate_pin = () => Math.floor(Math.random() * 100000);
+        const generate_pin = () => Math.random().toString(36).substring(2);
         const stmt = db.prepare('insert into `students`(`last_name`, `first_name`, `class`, `email`, `pin`) values (?, ?, ?, ?, ?)');
         students.forEach(student => stmt.run(...student, generate_pin()));
     }
