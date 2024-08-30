@@ -39,7 +39,7 @@
                   use:enhance={handle_apply}
                   class="p-4 h-64 box-content flex flex-col">
                 <input type="hidden" name="id" value={ag.id}>
-                <h2 class="text-2xl font-bold line-clamp-3" title={ag.name}>{ag.name}</h2>
+                <h2 class="text-2xl font-bold line-clamp-3 shrink-0" title={ag.name}>{ag.name}</h2>
                 <p class="flex-grow mt-2 mb-4 leading-tight overflow-auto whitespace-pre-line">{ag.description || ''}</p>
                 <div class="flex items-end justify-between gap-4">
                     <div class="list gap-x-2">

@@ -4,7 +4,7 @@ import { get_session } from '$lib/server/session';
 
 export function load({ cookies }) {
     const session = get_session(cookies);
-    if (!session?.student_id) redirect(307, '/auth');
+    if (!session?.student_id) error(403, 'Forbidden');
 
     const student = db.prepare('select * from `students` where `id` = ?')
         .get(session.student_id);
