@@ -6,7 +6,7 @@ import { BASE_PATH, MAIL_FROM } from '$env/static/private';
 export const actions = {
     create_ag: async ({ request, url }) => {
         const data = await request.formData();
-        const name = data.get('name'), organizer_email = data.get('organizer_email');
+        const name = data.get('ag_name'), organizer_email = data.get('organizer_email');
         if (!name || !organizer_email) error(400)
         const key = create_ag(name, organizer_email);
 
