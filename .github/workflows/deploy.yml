@@ -59,12 +59,16 @@ jobs:
             rm -r src/
       - name: Start container
         uses: appleboy/ssh-action@v1.0.3
+        env:
+          REGISTRY_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          USERNAME: ${{ github.actor }}
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           script: |
             cd /opt/ags/
+            echo $REGISTRY_TOKEN | docker login ghcr.io -u $USERNAME --password-stdin
             docker compose pull
             docker compose up -d
 
