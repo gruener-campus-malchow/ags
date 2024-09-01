@@ -1,0 +1,63 @@
+name: Deploy
+on:
+    push:
+      branches: ["main"]
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: read
+    needs:
+      - build
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Generate .env
+        run: |
+          echo: "Generating .env file"
+
+          echo "BASE_PATH=/" > .env
+          echo "DB_PATH=./data/ags.db" >> .env
+          echo "SQL_INIT_PATH=./data/init.sql" >> .env
+          echo "SMTP_HOST=${{ secrets.SMTP_HOST }}" >> .env
+          echo "SMTP_PORT=${{ secrets.SMTP_PORT }}" >> .env
+          echo "SMTP_USER=${{ secrets.SMTP_USER }}" >> .env
+          echo "SMTP_PASS=${{ secrets.SMTP_PASS }}" >> .env
+          echo "MAIL_FROM=${{ secrets.MAIL_FROM }}" >> .env
+          echo "BACKEND_USER=${{ secrets.BACKEND_USER }}" >> .env
+          echo "BACKEND_PASS=${{ secrets.BACKEND_PASS }}" >> .env
+      - name: Copy Files
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          source: ".env,./src/lib/server/db/init.sql,docker-compose.yml"
+          target: "/opt/ags/"
+      - name: Prepare files
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            cd /opt/ags/
+            mkdir -p data
+            mv init.sql data/
+      - name: Start container
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            cd /opt/ags/
+            docker compose pull
+            docker compose up -d
+
