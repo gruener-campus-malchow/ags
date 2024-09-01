@@ -12,3 +12,5 @@ vite.config.ts.timestamp-*
 
 # what the fuck
 .idea
+
+static/random-students.csv

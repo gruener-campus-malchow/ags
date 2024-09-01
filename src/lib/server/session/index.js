@@ -3,6 +3,7 @@ import { env } from '$env/dynamic/private';
 const COOKIE_NAME = 'session_id';
 const session = {};
 
+// todo: destroy session
 export function start_session(cookies) {
     const id = crypto.randomUUID();
     session[id] = {};

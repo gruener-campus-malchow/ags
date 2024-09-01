@@ -9,7 +9,7 @@
         <h2 class="h2 mt-0">Neue AG anlegen</h2>
         <div class="list form-list gap-y-2">
             <label for="ag_name">AG-Name</label>
-            <input id="ag_name" type="text" maxlength="64" class="input" name="name" required>
+            <input id="ag_name" type="text" maxlength="64" class="input" name="ag_name" required>
             <label for="ag_min_grade">E-Mail AG-Leitung</label>
             <input id="ag_organizer_email" type="email" class="input" name="organizer_email" required>
         </div>

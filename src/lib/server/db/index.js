@@ -10,6 +10,11 @@ if (!building) {
     db.exec(fs.readFileSync(env.SQL_INIT_PATH, 'utf8'));
 }
 
+export function get_ag(id) {
+    const stmt = db.prepare('select * from `ags` where `id` = ?');
+    return stmt.get(id);
+}
+
 export function create_ag(name, organizer_email) {
     let id_base = name.toLowerCase()
         .replace(/ä/ig, 'ae')
