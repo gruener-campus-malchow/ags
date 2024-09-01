@@ -1,11 +1,14 @@
 import Database from 'better-sqlite3';
-import { DB_PATH, SQL_INIT_PATH } from '$env/static/private';
+import { env } from '$env/dynamic/private';
 import fs from 'node:fs';
+import { building } from '$app/environment';
 
-export const db = new Database(DB_PATH);
+export const db = new Database(env.DB_PATH);
 db.pragma('journal_mode = WAL'); // https://github.com/WiseLibs/better-sqlite3/blob/master/docs/performance.md
 
-db.exec(fs.readFileSync(SQL_INIT_PATH, 'utf8'));
+if (!building) {
+    db.exec(fs.readFileSync(env.SQL_INIT_PATH, 'utf8'));
+}
 
 export function get_ag(id) {
     const stmt = db.prepare('select * from `ags` where `id` = ?');
@@ -20,7 +23,7 @@ export function create_ag(name, organizer_email) {
         .replace(/ß/ig, 'ss')
         .replace(/[^a-z0-9]+/ig, '-');
     let id = id_base;
-    for (let i = 2; get_ag(id); i ++) id = `${id_base}-${i}`;
+    for (let i = 2; get_ag(id); i++) id = `${id_base}-${i}`;
 
     const stmt = db.prepare('insert into `ags`(`id`, `name`) values (?, ?)');
     stmt.run(id, name);

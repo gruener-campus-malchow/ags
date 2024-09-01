@@ -1,4 +1,4 @@
-import { BACKEND_USER, BACKEND_PASS } from '$env/static/private';
+import { env } from '$env/dynamic/private';
 import { redirect } from '@sveltejs/kit';
 import { start_session } from '$lib/server/session';
 
@@ -8,7 +8,7 @@ export const actions = {
         const username = data.get('username'), password = data.get('password');
         if (!username || !password) return;
 
-        if (username === BACKEND_USER && password === BACKEND_PASS) {
+        if (username === env.BACKEND_USER && password === env.BACKEND_PASS) {
             const session = start_session(cookies);
             session.backend_auth = true;
             redirect(307, '/backend');

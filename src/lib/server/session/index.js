@@ -1,4 +1,4 @@
-import { BASE_PATH } from '$env/static/private';
+import { env } from '$env/dynamic/private';
 
 const COOKIE_NAME = 'session_id';
 const session = {};
@@ -7,7 +7,7 @@ const session = {};
 export function start_session(cookies) {
     const id = crypto.randomUUID();
     session[id] = {};
-    cookies.set(COOKIE_NAME, id, { path: BASE_PATH });
+    cookies.set(COOKIE_NAME, id, { path: env.BASE_PATH });
     return session[id];
 }
 
