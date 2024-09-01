@@ -26,7 +26,7 @@ jobs:
         uses: actions/checkout@v4
       - name: Generate .env
         run: |
-          echo: "Generating .env file"
+          echo "Generating .env file"
 
           echo "BASE_PATH=/" > .env
           echo "DB_PATH=./data/ags.db" >> .env
