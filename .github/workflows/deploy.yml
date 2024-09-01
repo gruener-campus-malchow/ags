@@ -55,7 +55,8 @@ jobs:
           script: |
             cd /opt/ags/
             mkdir -p data
-            mv init.sql data/
+            mv src/lib/server/db/init.sql data/
+            rm -r src/
       - name: Start container
         uses: appleboy/ssh-action@v1.0.3
         with:
