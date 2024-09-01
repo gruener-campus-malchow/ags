@@ -66,6 +66,7 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
+          envs: APPTOKEN,USERNAME
           script: |
             cd /opt/ags/
             echo $REGISTRY_TOKEN | docker login ghcr.io -u $USERNAME --password-stdin
