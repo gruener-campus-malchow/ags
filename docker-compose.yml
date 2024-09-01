@@ -1,0 +1,11 @@
+name: ags
+
+services:
+  ags:
+    image: ghcr.io/gruener-campus-malchow/ags:latest
+    env_file:
+      - .env
+    ports:
+      - 7000:3000
+    volumes:
+      - ./data:/app/data
